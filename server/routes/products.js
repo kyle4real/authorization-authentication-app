@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getProducts } from "../controllers/products.js";
+import { createProduct, getProducts } from "../controllers/products.js";
 import Product from "../models/Product.js";
 
 // Middleware
@@ -9,6 +9,6 @@ import { protect, authorize } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.route("/").get(advancedResults(Product), getProducts);
+router.route("/").get(advancedResults(Product), getProducts).post(createProduct);
 
 export default router;

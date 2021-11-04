@@ -19,7 +19,10 @@ const Form = ({ formArr, submitBtn, formTitle, onSubmit }) => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        if (onSubmit) onSubmit(formInput);
+        if (onSubmit)
+            onSubmit(formInput, () => {
+                setFormInput(initialFormInput(formArr));
+            });
     };
 
     return (

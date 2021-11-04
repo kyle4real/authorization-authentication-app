@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Table from "../UI/Table/Table";
 
 const thArr = ["Product", "Price", "Customer"];
@@ -21,6 +22,10 @@ const trArr = [
 ];
 
 const Sales = () => {
+    const { sales } = useSelector((state) => state.sales);
+
+    const trArr = sales?.length ? sales : [];
+
     const salesTable = <Table thArr={thArr} trArr={trArr} />;
     return salesTable;
 };

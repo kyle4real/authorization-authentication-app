@@ -14,12 +14,14 @@ const Routes = () => {
             <Route exact path="/">
                 <HomePage />
             </Route>
+            {/* AUTH */}
             <Route exact path="/login">
                 <LoginPage />
             </Route>
             <Route exact path="/register">
                 <RegisterPage />
             </Route>
+            {/* MAIN NAV */}
             <Route exact path="/products">
                 <ProductsPage />
             </Route>

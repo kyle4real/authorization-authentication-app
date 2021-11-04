@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../app/actions/products-actions";
 import Form from "../UI/Form/Form";
-import Grid from "../UI/Grid/Grid";
+import PageSplit from "../UI/PageSplit/PageSplit";
 import Table from "../UI/Table/Table";
 
 function numberWithCommas(x) {
@@ -33,25 +35,18 @@ const formArr = [
 ];
 
 const thArr = ["Product Name", "Product Price"];
-const trArr = [
-    {
-        name: "Ryzen 3",
-        price: 79.99,
-    },
-    {
-        name: "MSI Graphics Card",
-        price: 79.99,
-    },
-    {
-        name: "Samsung SSD.M2",
-        price: 79.99,
-    },
-];
+const displayKeys = ["name", "price"];
 
 const Products = () => {
-    const onSubmitHandler = (form) => {
+    const dispatch = useDispatch();
+    const { products } = useSelector((state) => state.products);
+
+    const onSubmitHandler = (form, callback) => {
         form = { ...form, price: Number(form.price) };
+        dispatch(createProduct(form, callback));
     };
+
+    const trArr = products?.length ? products : [];
 
     const newProductForm = (
         <Form
@@ -61,8 +56,8 @@ const Products = () => {
             formArr={formArr}
         />
     );
-    const productsTable = <Table thArr={thArr} trArr={trArr} />;
-    return Grid(newProductForm, productsTable);
+    const productsTable = <Table thArr={thArr} trArr={trArr} displayKeys={displayKeys} />;
+    return PageSplit(newProductForm, productsTable);
 };
 
 export default Products;

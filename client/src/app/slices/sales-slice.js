@@ -1,31 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const authSlice = createSlice({
-    name: "auth",
+const salesSlice = createSlice({
+    name: "sales",
     initialState: {
-        accessToken: null,
+        sales: null,
         loading: true,
         error: null,
     },
     reducers: {
-        replaceAccessToken(state, action) {
+        replaceSales(state, action) {
             const { data } = action.payload;
-            console.log(data);
-            state.accessToken = data.data.accessToken;
+            state.sales = data.data;
         },
-        resetAccessToken(state) {
-            state.accessToken = null;
+        resetSales(state) {
+            state.sales = null;
         },
-        // Loading
+        // loading
         setLoading(state, action) {
             state.loading = action.payload;
         },
-        // Error
+        // error
         setError(state, action) {
             state.error = action.payload;
         },
     },
 });
 
-export const authActions = authSlice.actions;
-export default authSlice;
+export const salesActions = salesSlice.actions;
+export default salesSlice;

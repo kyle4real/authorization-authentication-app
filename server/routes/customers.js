@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getCustomers } from "../controllers/customers.js";
+import { getCustomers, createCustomer } from "../controllers/customers.js";
 import Customer from "../models/Customer.js";
 
 // Middleware
@@ -9,6 +9,8 @@ import { protect, authorize } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.route("/").get(advancedResults(Customer), getCustomers);
+router.use(protect);
+
+router.route("/").get(advancedResults(Customer), getCustomers).post(createCustomer);
 
 export default router;

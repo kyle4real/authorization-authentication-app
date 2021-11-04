@@ -1,8 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import Form from "../UI/Form/Form";
 import { SFixedContainer, SFlexContainer } from "../UI/Containers/styles";
 import { SLink, SOptions } from "./styles";
+import { login } from "../../app/actions/auth-actions";
+import { useHistory } from "react-router";
 
 const formArr = [
     {
@@ -20,8 +23,15 @@ const formArr = [
 ];
 
 const Login = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     const onSubmitHandler = (form) => {
-        console.log(form);
+        dispatch(
+            login(form, () => {
+                history.push("/");
+            })
+        );
     };
 
     return (

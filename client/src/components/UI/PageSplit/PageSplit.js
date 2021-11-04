@@ -1,7 +1,7 @@
 import React from "react";
 import { SGrid, SGridItem } from "./styles";
 
-const Grid = (left, right) => {
+const PageSplit = (left, right) => {
     return (
         <SGrid>
             <SGridItem>{left}</SGridItem>
@@ -10,4 +10,4 @@ const Grid = (left, right) => {
     );
 };
 
-export default Grid;
+export default PageSplit;

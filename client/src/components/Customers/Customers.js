@@ -1,6 +1,9 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomer } from "../../app/actions/customers-actions";
+
 import Form from "../UI/Form/Form";
-import Grid from "../UI/Grid/Grid";
+import PageSplit from "../UI/PageSplit/PageSplit";
 import Table from "../UI/Table/Table";
 
 const formArr = [
@@ -12,22 +15,15 @@ const formArr = [
     },
 ];
 const thArr = ["Customer Name"];
-const trArr = [
-    {
-        name: "Philip",
-    },
-    {
-        name: "John",
-    },
-    {
-        name: "Jason",
-    },
-];
+const displayKeys = ["name"];
 
 const Customers = () => {
-    const onSubmitHandler = (form) => {
-        console.log(form);
-    };
+    const dispatch = useDispatch();
+    const { customers } = useSelector((state) => state.customers);
+
+    const trArr = customers?.length ? customers : [];
+
+    const onSubmitHandler = (form, callback) => dispatch(createCustomer(form, callback));
 
     const newCustomerForm = (
         <Form
@@ -37,8 +33,8 @@ const Customers = () => {
             formArr={formArr}
         />
     );
-    const customersTable = <Table thArr={thArr} trArr={trArr} />;
-    return Grid(newCustomerForm, customersTable);
+    const customersTable = <Table thArr={thArr} trArr={trArr} displayKeys={displayKeys} />;
+    return PageSplit(newCustomerForm, customersTable);
 };
 
 export default Customers;

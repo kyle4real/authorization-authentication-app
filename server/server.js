@@ -14,6 +14,7 @@ import usersRoutes from "./routes/users.js";
 import productsRoutes from "./routes/products.js";
 import customersRoutes from "./routes/customers.js";
 import salesRoutes from "./routes/sales.js";
+import authRoutes from "./routes/auth.js";
 
 import connectDB from "./config/db.js";
 connectDB();
@@ -29,6 +30,7 @@ app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/customers`, customersRoutes);
 app.use(`${api}/sales`, salesRoutes);
+app.use(`${api}/auth`, authRoutes);
 
 app.use(errorHandler);
 

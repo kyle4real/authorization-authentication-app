@@ -9,6 +9,8 @@ import { protect, authorize } from "../middleware/auth.js";
 
 const router = express.Router();
 
+router.use(protect);
+
 router.route("/").get(advancedResults(Sale), getSales);
 
 export default router;

@@ -3,6 +3,9 @@ import React from "react";
 import Form from "../UI/Form/Form";
 import { SFixedContainer, SFlexContainer } from "../UI/Containers/styles";
 import { SLink, SOptions } from "./styles";
+import { useDispatch } from "react-redux";
+import { register } from "../../app/actions/auth-actions";
+import { useHistory } from "react-router";
 
 const formArr = [
     {
@@ -26,8 +29,15 @@ const formArr = [
 ];
 
 const Register = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     const onSubmitHandler = (form) => {
-        console.log(form);
+        dispatch(
+            register(form, () => {
+                history.push("/");
+            })
+        );
     };
 
     return (
