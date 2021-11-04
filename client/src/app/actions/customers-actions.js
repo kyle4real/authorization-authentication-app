@@ -8,8 +8,9 @@ export const getCustomers = () => {
             dispatch(customersActions.replaceCustomers({ data }));
         } catch (error) {
             let errorMessage;
-            if (error.response.data.error) {
-                errorMessage = error.response.data.error;
+
+            if (error.response && error.response.data) {
+                errorMessage = error.response.data.message;
             } else errorMessage = error.message;
             dispatch(customersActions.setError(errorMessage));
         } finally {

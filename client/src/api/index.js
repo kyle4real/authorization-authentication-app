@@ -1,6 +1,7 @@
 import axios from "axios";
 import { authActions } from "../app/slices/auth-slice";
 import store from "../app/store";
+import { isTokenValid } from "../utils/accessToken";
 
 const API = axios.create({ baseURL: "http://localhost:5000", withCredentials: true });
 
@@ -10,52 +11,37 @@ const getAccessToken = () => {
     return accessToken;
 };
 
-API.interceptors.request.use(
-    (config) => {
-        const token = getAccessToken();
-        if (token) {
-            config.headers.Authorization = `Bearer ${getAccessToken() || ""}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
+API.interceptors.request.use((req) => {
+    const token = getAccessToken();
+    req.headers.Authorization = `Bearer ${token || ""}`;
+    return req;
+});
 
 API.interceptors.response.use(
     (res) => {
         return res;
     },
     async (err) => {
-        const originalConfig = err.config;
-
         if (err.response) {
-            // Access Token Expired
-            if (err.response.status === 401 && !originalConfig._retry) {
-                originalConfig._retry = true;
-
-                try {
-                    const { data } = await refresh();
-                    const { accessToken } = data.data;
-                    API.defaults.headers.Authorization = accessToken;
-                    store.dispatch(authActions.replaceAccessToken({ data }));
-                    return API(originalConfig);
-                } catch (error) {
-                    if (error.response && error.response.data) {
-                        return Promise.reject(error.response.data);
-                    }
-
-                    return Promise.reject(error);
-                }
+            if (
+                err.response.data.error === "No refresh token detected" ||
+                err.response.data.error === "Invalid refresh token"
+            ) {
+                return Promise.reject(err);
             }
+            if (err.response.status === 401) {
+                try {
+                    const { data } = await API.post(`${authRoute}/refresh_token`);
+                    store.dispatch(authActions.replaceAccessToken({ data }));
 
-            if (err.response.status === 403 && err.response.data) {
-                return Promise.reject(err.response.data);
+                    return API(err.config);
+                } catch (error) {
+                    throw new Error(error);
+                }
             }
         }
 
-        return Promise.reject(err);
+        throw new Error(err.message);
     }
 );
 

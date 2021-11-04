@@ -8,7 +8,8 @@ export const getSales = () => {
             dispatch(salesActions.replaceSales({ data }));
         } catch (error) {
             let errorMessage;
-            if (error.response.data.error) {
+            console.log(error.message);
+            if (error.response && error.reponse.data.error) {
                 errorMessage = error.response.data.error;
             } else errorMessage = error.message;
             dispatch(salesActions.setError(errorMessage));
