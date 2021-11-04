@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { v } from "../../styles/variables";
 
-export const SHomePage = styled.div`
+export const SHome = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;

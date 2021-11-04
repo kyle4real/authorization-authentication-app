@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getCustomers } from "../controllers/customers";
+import { getCustomers } from "../controllers/customers.js";
 import Customer from "../models/Customer.js";
 
 // Middleware

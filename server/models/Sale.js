@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CustomerSchema = new mongoose.Schema({
+const SaleSchema = new mongoose.Schema({
     name: String,
     customer: {
         type: mongoose.Schema.ObjectId,
@@ -12,5 +12,5 @@ const CustomerSchema = new mongoose.Schema({
     },
 });
 
-const Customer = mongoose.model("Customer", CustomerSchema);
-export default Customer;
+const Sale = mongoose.model("Sale", SaleSchema);
+export default Sale;

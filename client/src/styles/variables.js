@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 export const v = {
     headerHeight: `66px`,
     // headerTopHeight: "28px",
@@ -22,6 +24,16 @@ export const v = {
     // buttonActiveBoxShadow: `0 1px 1px rgba(0,0,0,0.15),
     // 0 2px 2px rgba(0,0,0,0.15)`,
 };
+
+export const btnReset = css`
+    outline: none;
+    border: none;
+    font-family: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    background: none;
+    padding: 0;
+`;
 
 export const s = {
     // 1460px = 91.25em

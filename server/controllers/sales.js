@@ -1,4 +1,4 @@
-import asyncHandler from "./../middleware/asyncHandler.js";
+import asyncHandler from "../middleware/async.js";
 
 // @desc    Get all sales
 // @route   GET /api/v1/sales/

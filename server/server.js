@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import "colors";
@@ -9,11 +10,12 @@ import errorHandler from "./middleware/error.js";
 dotenv.config({ path: "./config/config.env" });
 
 // Route Imports
-import usersRoutes from "./routes";
-import productsRoutes from "./routes";
-import customersRoutes from "./routes";
-import salesRoutes from "./routes";
+import usersRoutes from "./routes/users.js";
+import productsRoutes from "./routes/products.js";
+import customersRoutes from "./routes/customers.js";
+import salesRoutes from "./routes/sales.js";
 
+import connectDB from "./config/db.js";
 connectDB();
 const app = express();
 
@@ -22,7 +24,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("dev"));
 
-const api = "/api/v1";
+const api = "/api";
 app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/customers`, customersRoutes);

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const uiSlice = createSlice({
     name: "ui",
     initialState: {
-        theme: "dark",
+        theme: "light",
         menuOpen: false,
     },
     reducers: {
