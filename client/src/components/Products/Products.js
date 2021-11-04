@@ -7,6 +7,47 @@ function numberWithCommas(x) {
     return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const formArr = [
+    {
+        label: "Product Name",
+        name: "name",
+        initialValue: "",
+        type: "text",
+    },
+    {
+        label: "Product Price",
+        name: "price",
+        initialValue: "",
+        type: "text",
+        valueParse: (value) => {
+            return `$${numberWithCommas(value) || ""}`;
+        },
+        changeParse: (value) => {
+            value = value.slice(1).split(",").join("");
+            if (value === "") return "";
+            if (isNaN(value)) return null;
+            if (value.includes(".") && value.slice(value.indexOf(".") + 1).length > 2) return null;
+            return value;
+        },
+    },
+];
+
+const thArr = ["Product Name", "Product Price"];
+const trArr = [
+    {
+        name: "Ryzen 3",
+        price: 79.99,
+    },
+    {
+        name: "MSI Graphics Card",
+        price: 79.99,
+    },
+    {
+        name: "Samsung SSD.M2",
+        price: 79.99,
+    },
+];
+
 const Products = () => {
     const onSubmitHandler = (form) => {
         form = { ...form, price: Number(form.price) };
@@ -17,35 +58,11 @@ const Products = () => {
             onSubmit={onSubmitHandler}
             formTitle={"Create New Product"}
             submitBtn={"Create"}
-            formArr={[
-                {
-                    label: "Product Name",
-                    name: "name",
-                    initialValue: "",
-                    type: "text",
-                },
-                {
-                    label: "Product Price",
-                    name: "price",
-                    initialValue: "",
-                    type: "text",
-                    valueParse: (value) => {
-                        return `$${numberWithCommas(value) || ""}`;
-                    },
-                    changeParse: (value) => {
-                        value = value.slice(1).split(",").join("");
-                        if (value === "") return "";
-                        if (isNaN(value)) return null;
-                        if (value.includes(".") && value.slice(value.indexOf(".") + 1).length > 2)
-                            return null;
-                        return value;
-                    },
-                },
-            ]}
+            formArr={formArr}
         />
     );
-    const productsList = <Table />;
-    return Grid(newProductForm, productsList);
+    const productsTable = <Table thArr={thArr} trArr={trArr} />;
+    return Grid(newProductForm, productsTable);
 };
 
 export default Products;

@@ -6,6 +6,12 @@ import { SLink, SOptions } from "./styles";
 
 const formArr = [
     {
+        label: "Name",
+        name: "name",
+        initialValue: "",
+        type: "text",
+    },
+    {
         label: "Email",
         name: "email",
         initialValue: "",
@@ -19,7 +25,7 @@ const formArr = [
     },
 ];
 
-const Login = () => {
+const Register = () => {
     const onSubmitHandler = (form) => {
         console.log(form);
     };
@@ -29,17 +35,17 @@ const Login = () => {
             <SFixedContainer maxWidth={275}>
                 <Form
                     onSubmit={onSubmitHandler}
-                    formTitle={"Login"}
+                    formTitle={"Register Form"}
                     submitBtn={"Register"}
                     formArr={formArr}
                 />
                 <SOptions>
-                    Don't have an account?&nbsp;
-                    <SLink to={"/register"}>Create One</SLink>
+                    Already have an account?&nbsp;
+                    <SLink to={"/login"}>Log In</SLink>
                 </SOptions>
             </SFixedContainer>
         </SFlexContainer>
     );
 };
 
-export default Login;
+export default Register;

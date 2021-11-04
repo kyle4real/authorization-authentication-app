@@ -19,15 +19,21 @@ const Table = ({ thArr, trArr }) => {
                     </STHeadTR>
                 </STHead>
                 <STBody>
-                    {trArr.map(({ name, price }, index) => {
+                    {trArr.map((dataObj, index) => {
+                        const dataArr = Object.values(dataObj);
                         return (
                             <Fragment key={index}>
                                 <STBodyTR>
                                     <STD style={{ width: "0%", whiteSpace: "nowrap" }}>
                                         {index + 1}
                                     </STD>
-                                    <STD>{name}</STD>
-                                    <STD>{price}</STD>
+                                    {dataArr.map((item, index) => {
+                                        return (
+                                            <Fragment key={index}>
+                                                <STD>{item}</STD>
+                                            </Fragment>
+                                        );
+                                    })}
                                 </STBodyTR>
                             </Fragment>
                         );
@@ -38,22 +44,6 @@ const Table = ({ thArr, trArr }) => {
     );
 };
 
-Table.defaultProps = {
-    thArr: ["Product Name", "Product Price"],
-    trArr: [
-        {
-            name: "Ryzen 3",
-            price: 79.99,
-        },
-        {
-            name: "MSI Graphics Card",
-            price: 79.99,
-        },
-        {
-            name: "Samsung SSD.M2",
-            price: 79.99,
-        },
-    ],
-};
+Table.defaultProps = {};
 
 export default Table;
