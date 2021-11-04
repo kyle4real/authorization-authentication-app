@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "../UI/Form/Form";
 import Grid from "../UI/Grid/Grid";
-import List from "../UI/List/List";
+import Table from "../UI/Table/Table";
 
 function numberWithCommas(x) {
     return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -44,7 +44,7 @@ const Products = () => {
             ]}
         />
     );
-    const productsList = <List />;
+    const productsList = <Table />;
     return Grid(newProductForm, productsList);
 };
 
