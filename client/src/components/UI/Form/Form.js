@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SForm, SFormControl, SFormTitle, SInput, SLabel, SSubmitButton } from "./styles";
 
 const initialFormInput = (formArr) => {
