@@ -11,6 +11,7 @@ const SalesPage = () => {
     useEffect(() => {
         dispatch(getSales());
         return () => {
+            dispatch(salesActions.setError(null));
             dispatch(salesActions.setLoading(true));
             dispatch(salesActions.resetSales());
         };

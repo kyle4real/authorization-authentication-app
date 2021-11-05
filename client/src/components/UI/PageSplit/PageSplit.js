@@ -5,6 +5,7 @@ const PageSplit = (left, right) => {
     return (
         <SGrid>
             <SGridItem>{left}</SGridItem>
+
             <SGridItem>{right}</SGridItem>
         </SGrid>
     );

@@ -13,6 +13,7 @@ const CustomersPage = () => {
         dispatch(getCustomers());
 
         return () => {
+            dispatch(customersActions.setError(null));
             dispatch(customersActions.setLoading(true));
             dispatch(customersActions.resetCustomers());
         };

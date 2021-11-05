@@ -11,6 +11,7 @@ const ProductsPage = () => {
     useEffect(() => {
         dispatch(getProducts());
         return () => {
+            dispatch(productsActions.setError(null));
             dispatch(productsActions.setLoading(true));
             dispatch(productsActions.resetProducts());
         };
