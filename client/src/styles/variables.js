@@ -29,6 +29,7 @@ export const btnReset = css`
     outline: none;
     border: none;
     font-family: inherit;
+    font-size: inherit;
     letter-spacing: inherit;
     line-height: inherit;
     background: none;

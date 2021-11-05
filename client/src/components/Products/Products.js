@@ -1,9 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { createProduct } from "../../app/actions/products-actions";
 import Form from "../UI/Form/Form";
 import PageSplit from "../UI/PageSplit/PageSplit";
 import Table from "../UI/Table/Table";
+import { SProductBtn } from "./styles";
 
 function numberWithCommas(x) {
     return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -34,8 +36,14 @@ const formArr = [
     },
 ];
 
+const ProductBtn = (value, dataObj) => {
+    const history = useHistory();
+    const onClick = () => history.push(`/products/${dataObj._id}`);
+    return <SProductBtn onClick={onClick}>{value}</SProductBtn>;
+};
+
 const thArr = ["Product Name", "Product Price"];
-const displayKeys = ["name", "price"];
+const displayKeys = [["name", ProductBtn], "price"];
 
 const Products = () => {
     const dispatch = useDispatch();

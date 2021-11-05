@@ -37,3 +37,8 @@ export const STD = styled.td`
     border: 1px solid ${({ theme }) => theme.text};
     padding: ${v.smSpacing};
 `;
+
+export const STDNoPadding = styled.td`
+    border: 1px solid ${({ theme }) => theme.text};
+    padding: 0;
+`;

@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import SalesPage from "./pages/SalesPage";
 import RegisterPage from "./pages/RegisterPage";
+import ProductPage from "./pages/ProductPage";
 
 const Routes = () => {
     return (
@@ -30,6 +31,10 @@ const Routes = () => {
             </Route>
             <Route exact path="/sales">
                 <SalesPage />
+            </Route>
+            {/* PRODUCT ROUTES */}
+            <Route exact path="/products/:productId">
+                <ProductPage />
             </Route>
         </Switch>
     );

@@ -57,6 +57,8 @@ export const refresh = () => API.post(`${authRoute}/refresh_token`);
 const productsRoute = `${api}/products`;
 export const getProducts = () => API.get(`${productsRoute}/`);
 export const createProduct = (form) => API.post(`${productsRoute}/`, form);
+// PRODUCT
+export const getProduct = (productId) => API.get(`${productsRoute}/${productId}`);
 
 // CUSTOMERS
 const customersRoute = `${api}/customers`;
