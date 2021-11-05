@@ -47,6 +47,7 @@ export const SSubmitButton = styled.button`
     width: 100%;
     display: block;
     text-align: center;
+    font-size: 14px;
     background: ${({ theme }) => theme.primary};
     margin-top: ${v.mdSpacing};
     padding: ${v.smSpacing};

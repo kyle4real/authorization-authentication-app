@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { uiActions } from "../../../app/slices/ui-slice";
+import { isTokenValid } from "../../../utils/accessToken";
 import Nav from "./Nav/Nav";
 import {
     SCenter,
@@ -23,6 +24,7 @@ const Header = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { menuOpen } = useSelector((state) => state.ui);
+    const { loading, accessToken } = useSelector((state) => state.auth);
 
     const menuToggleHandler = () => {
         dispatch(uiActions.menuToggle());
@@ -30,6 +32,10 @@ const Header = () => {
     const menuClosehandler = () => {
         if (menuOpen) dispatch(uiActions.menuClose());
     };
+
+    const valid = isTokenValid(accessToken);
+    const ctaBtnText = !valid ? "Log In" : "Account";
+    const ctaBtnLink = !valid ? "/login" : "/account";
 
     return (
         <>
@@ -41,11 +47,13 @@ const Header = () => {
                             <SLogo />
                         </SLogoLink>
                     </SLeft>
-                    <SCenter>
-                        <Nav />
-                    </SCenter>
+                    <SCenter>{!loading && valid && <Nav />}</SCenter>
                     <SRight>
-                        <SCTAButton onClick={() => history.push("/login")}>Log In</SCTAButton>
+                        {!loading && (
+                            <SCTAButton onClick={() => history.push(ctaBtnLink)}>
+                                {ctaBtnText}
+                            </SCTAButton>
+                        )}
                         <SMenuToggleButton onClick={menuToggleHandler}>
                             {!menuOpen ? <SMenuIcon /> : <SCloseIcon />}
                         </SMenuToggleButton>
@@ -53,7 +61,7 @@ const Header = () => {
                 </SHeader>
             </SHeaderFixed>
             <SMenu style={menuOpen ? { left: 0 } : {}}>
-                <Nav menuToggleHandler={menuToggleHandler} />
+                {!loading && valid && <Nav menuToggleHandler={menuToggleHandler} />}
             </SMenu>
         </>
     );

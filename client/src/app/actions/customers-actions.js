@@ -7,12 +7,7 @@ export const getCustomers = () => {
             const { data } = await api.getCustomers();
             dispatch(customersActions.replaceCustomers({ data }));
         } catch (error) {
-            let errorMessage;
-
-            if (error.response && error.response.data) {
-                errorMessage = error.response.data.message;
-            } else errorMessage = error.message;
-            dispatch(customersActions.setError(errorMessage));
+            dispatch(customersActions.setError(error.response.data));
         } finally {
             dispatch(customersActions.setLoading(false));
         }

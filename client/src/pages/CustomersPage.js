@@ -4,6 +4,8 @@ import { getCustomers } from "../app/actions/customers-actions";
 import { customersActions } from "../app/slices/customers-slice";
 
 import Customers from "../components/Customers/Customers";
+import Error from "../components/Error/Error";
+import PageLoad from "../components/Loading/PageLoad";
 
 const CustomersPage = () => {
     const { loading, error } = useSelector((state) => state.customers);
@@ -19,9 +21,8 @@ const CustomersPage = () => {
         };
     }, [dispatch]);
 
-    if (loading) return <>loading</>;
-    if (error) return <>there was an error loading this page: {error}</>;
-
+    if (loading) return <PageLoad />;
+    if (error) return <Error error={error} />;
     return <Customers />;
 };
 

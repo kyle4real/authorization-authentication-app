@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../app/actions/products-actions";
 import { productsActions } from "../app/slices/products-slice";
+import Error from "../components/Error/Error";
+import PageLoad from "../components/Loading/PageLoad";
 import Products from "../components/Products/Products";
 
 const ProductsPage = () => {
@@ -17,8 +19,8 @@ const ProductsPage = () => {
         };
     }, [dispatch]);
 
-    if (loading) return <>loading</>;
-    if (error) return <>there was an error loading this page: {error}</>;
+    if (loading) return <PageLoad />;
+    if (error) return <Error error={error} />;
 
     return <Products />;
 };

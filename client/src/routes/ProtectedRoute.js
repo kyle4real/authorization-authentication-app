@@ -1,41 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, useHistory, useLocation } from "react-router";
 import { refresh } from "../app/actions/auth-actions";
 import { authActions } from "../app/slices/auth-slice";
-import { getTokenRole, isTokenValid } from "../utils/accessToken";
+import PageLoad from "../components/Loading/PageLoad";
+import { isTokenValid } from "../utils/accessToken";
 
-const InactivityMessage = () => {
+const ProtectedRoute = ({ children, ...restOfProps }) => {
+    const location = useLocation();
     const history = useHistory();
-    const [count, setCount] = useState(3);
+    const dispatch = useDispatch();
+    const { accessToken, loading } = useSelector((state) => state.auth);
 
-    useEffect(() => {
-        if (count > 0) return;
-        history.push("/login");
-    }, [count, history]);
+    // useEffect(() => {
+    //     const onSuccess = () => {};
+    //     const onFailure = () => {
+    //         history.push("/login");
+    //     };
 
-    useEffect(() => {
-        const id = setInterval(() => {
-            setCount((p) => p - 1);
-        }, 1000);
-        return () => clearInterval(id);
-    }, []);
+    //     if (!isTokenValid(accessToken)) {
+    //         dispatch(refresh(onSuccess, onFailure));
+    //     } else dispatch(authActions.setLoading(false));
 
-    return (
-        <>
-            Your session has expired
-            <br />
-            Please log in again
-            <br />
-            {count}...
-        </>
-    );
-};
+    //     return () => dispatch(authActions.setLoading(true));
+    // }, [location, dispatch, accessToken, history]);
 
-const ProtectedRoute = ({ children, roles, ...restOfProps }) => {
-    const { accessToken } = useSelector((state) => state.auth);
-
-    const role = getTokenRole(accessToken);
+    // if (loading) return <PageLoad />;
 
     return <Route {...restOfProps}>{children}</Route>;
 };

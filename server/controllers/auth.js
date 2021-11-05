@@ -127,6 +127,10 @@ export const getMe = asyncHandler(async (req, res, next) => {
     // @note-to-self    req.user.id is accessable on account of the auth middleware
     const user = await User.findById(req.user.id);
 
+    if (!user) {
+        return next(new ErrorResponse(`Unable to get user`, 403));
+    }
+
     res.status(200).json({ success: true, data: user });
 });
 

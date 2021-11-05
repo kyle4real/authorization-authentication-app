@@ -9,7 +9,7 @@ const Product = () => {
 
     return (
         <SFlexContainer>
-            <SFixedContainer maxWidth={250}>
+            <SFixedContainer maxWidth={275}>
                 <Card>
                     <SProductName>{product?.name}</SProductName>
                     <SProductPrice>${product?.price}</SProductPrice>

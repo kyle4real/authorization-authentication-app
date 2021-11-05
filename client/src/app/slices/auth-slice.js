@@ -5,6 +5,7 @@ const authSlice = createSlice({
     initialState: {
         accessToken: null,
         loading: true,
+        appLoading: true,
         error: null,
     },
     reducers: {
@@ -18,6 +19,10 @@ const authSlice = createSlice({
         // Loading
         setLoading(state, action) {
             state.loading = action.payload;
+        },
+        // app loading
+        setAppLoading(state, action) {
+            state.appLoading = action.payload;
         },
         // Error
         setError(state, action) {

@@ -2,6 +2,7 @@ import axios from "axios";
 import { authActions } from "../app/slices/auth-slice";
 import store from "../app/store";
 import { isTokenValid } from "../utils/accessToken";
+import { createBrowserHistory } from "history";
 
 const API = axios.create({ baseURL: "http://localhost:5000", withCredentials: true });
 
@@ -17,6 +18,12 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
+const pushLogin = () => {
+    if (window.location.pathname === "/login") return;
+    createBrowserHistory().push("/login");
+    window.location.reload();
+};
+
 API.interceptors.response.use(
     (res) => {
         return res;
@@ -27,6 +34,11 @@ API.interceptors.response.use(
                 err.response.data.error === "No refresh token detected" ||
                 err.response.data.error === "Invalid refresh token"
             ) {
+                pushLogin();
+                return Promise.reject(err);
+            }
+            if (err.response.data.error === "jwt expired") {
+                pushLogin();
                 return Promise.reject(err);
             }
             if (err.response.status === 401) {
@@ -36,12 +48,13 @@ API.interceptors.response.use(
 
                     return API(err.config);
                 } catch (error) {
-                    throw new Error(error);
+                    // throw new Error(error);
+                    return Promise.reject(error);
                 }
             }
         }
 
-        throw new Error(err.message);
+        return Promise.reject(err);
     }
 );
 
@@ -52,6 +65,9 @@ const authRoute = `${api}/auth`;
 export const login = (form) => API.post(`${authRoute}/login`, form);
 export const register = (form) => API.post(`${authRoute}/register`, form);
 export const refresh = () => API.post(`${authRoute}/refresh_token`);
+export const logout = () => API.get(`${authRoute}/logout`);
+// USER
+export const me = () => API.get(`${authRoute}/me`);
 
 // PRODUCTS
 const productsRoute = `${api}/products`;

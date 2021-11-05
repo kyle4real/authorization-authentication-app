@@ -1,17 +1,36 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 import { ThemeProvider } from "styled-components";
+import { refresh } from "./app/actions/auth-actions";
+import { authActions } from "./app/slices/auth-slice";
 
 import Layout from "./components/Layout/Layout";
 
 import Routes from "./Routes";
 import { GlobalStyles } from "./styles/globalStyles";
 import { darkTheme, lightTheme } from "./styles/theme";
+import { isTokenValid } from "./utils/accessToken";
 
 function App() {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { accessToken, loading } = useSelector((state) => state.auth);
     const { theme } = useSelector((state) => state.ui);
     const currentTheme = theme === "light" ? lightTheme : darkTheme;
+
+    useEffect(() => {
+        const onSuccess = () => {};
+        const onFailure = () => {
+            dispatch(authActions.resetAccessToken());
+        };
+
+        dispatch(refresh(onSuccess, onFailure));
+
+        return () => dispatch(authActions.setLoading(true));
+    }, [dispatch]);
 
     return (
         <ThemeProvider theme={currentTheme}>
@@ -26,9 +45,7 @@ function App() {
                 />
             </Helmet>
             <>
-                <Layout>
-                    <Routes />
-                </Layout>
+                <Layout>{!loading && <Routes />}</Layout>
             </>
         </ThemeProvider>
     );
