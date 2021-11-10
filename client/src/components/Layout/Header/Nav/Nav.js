@@ -37,6 +37,10 @@ Nav.defaultProps = {
             label: "Sales",
             link: "/sales",
         },
+        {
+            label: "Products+Customers",
+            link: "/products-customers",
+        },
     ],
 };
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../app/actions/product-actions";
 import { productActions } from "../app/slices/product-slice";
+import Error from "../components/Error/Error";
 import Product from "../components/Product/Product";
 
 const ProductPage = () => {
@@ -20,7 +21,7 @@ const ProductPage = () => {
     }, [dispatch, params.productId]);
 
     if (loading) return <>loading</>;
-    if (error) return <>there was an error loading this page: {error}</>;
+    if (error) return <Error error={error} />;
 
     return <Product />;
 };

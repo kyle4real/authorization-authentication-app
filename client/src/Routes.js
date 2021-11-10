@@ -12,6 +12,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
 import { isTokenValid } from "./utils/accessToken";
 import AccountPage from "./pages/AccountPage";
+import ProductsAndCustomersPage from "./pages/ProductsAndCustomersPage";
 
 const Routes = () => {
     const { accessToken } = useSelector((state) => state.auth);
@@ -50,6 +51,9 @@ const Routes = () => {
                     </Route>
                     <Route exact path="/sales">
                         <SalesPage />
+                    </Route>
+                    <Route exact path="/products-customers">
+                        <ProductsAndCustomersPage />
                     </Route>
                     {/* PRODUCT ROUTES */}
                     <Route exact path="/products/:productId">
