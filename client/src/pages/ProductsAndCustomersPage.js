@@ -19,7 +19,7 @@ const ProductsAndCustomersPage = () => {
 
     useEffect(() => {
         const onComplete = () => setLoading(false);
-        const onError = (err) => setError(err.error);
+        const onError = (err) => setError(err);
 
         dispatch(getProductsAndCustomers({ onError, onComplete }));
 

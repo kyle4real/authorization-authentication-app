@@ -10,7 +10,7 @@ export const getProductsAndCustomers = ({ onComplete, onError }) => {
             dispatch(productsActions.replaceProducts({ data: productsData }));
             dispatch(customersActions.replaceCustomers({ data: customersData }));
         } catch (error) {
-            onError(error);
+            onError(error.response.data);
         } finally {
             onComplete();
         }

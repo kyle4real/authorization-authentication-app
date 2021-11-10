@@ -31,36 +31,29 @@ const Routes = () => {
             <Route exact path="/register">
                 <RegisterPage />
             </Route>
-            {!valid && (
-                <Route path="*">
-                    <Redirect to="/" />
+            <>
+                {/* ACCOUNT */}
+                <Route exact path="/account">
+                    <AccountPage />
                 </Route>
-            )}
-            {valid && (
-                <>
-                    {/* ACCOUNT */}
-                    <Route exact path="/account">
-                        <AccountPage />
-                    </Route>
-                    {/* MAIN NAV */}
-                    <Route exact path="/products">
-                        <ProductsPage />
-                    </Route>
-                    <Route exact path="/customers">
-                        <CustomersPage />
-                    </Route>
-                    <Route exact path="/sales">
-                        <SalesPage />
-                    </Route>
-                    <Route exact path="/products-customers">
-                        <ProductsAndCustomersPage />
-                    </Route>
-                    {/* PRODUCT ROUTES */}
-                    <Route exact path="/products/:productId">
-                        <ProductPage />
-                    </Route>
-                </>
-            )}
+                {/* MAIN NAV */}
+                <ProtectedRoute exact path="/products">
+                    <ProductsPage />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/customers">
+                    <CustomersPage />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/sales">
+                    <SalesPage />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/products-customers">
+                    <ProductsAndCustomersPage />
+                </ProtectedRoute>
+                {/* PRODUCT ROUTES */}
+                <Route exact path="/products/:productId">
+                    <ProductPage />
+                </Route>
+            </>
         </Switch>
     );
 };

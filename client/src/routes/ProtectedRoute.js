@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, useHistory, useLocation } from "react-router";
+import { Redirect, Route, useHistory, useLocation } from "react-router";
 import { refresh } from "../app/actions/auth-actions";
 import { authActions } from "../app/slices/auth-slice";
 import PageLoad from "../components/Loading/PageLoad";
@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children, ...restOfProps }) => {
 
     // if (loading) return <PageLoad />;
 
-    return <Route {...restOfProps}>{children}</Route>;
+    return <Route {...restOfProps}>{accessToken ? children : <Redirect to="/login" />}</Route>;
 };
 
 export default ProtectedRoute;

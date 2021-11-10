@@ -19,9 +19,10 @@ API.interceptors.request.use((req) => {
 });
 
 const pushLogin = () => {
-    if (window.location.pathname === "/login") return;
-    createBrowserHistory().push("/login");
-    window.location.reload();
+    // if (window.location.pathname === "/login") return;
+    // createBrowserHistory().push("/login");
+    // window.location.reload();
+    store.dispatch(authActions.resetAccessToken());
 };
 
 API.interceptors.response.use(
